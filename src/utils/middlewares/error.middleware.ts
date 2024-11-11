@@ -6,7 +6,6 @@ export function errorHandler(err: any, req: Request, res: Response, next: NextFu
     const statusCode = err.statusCode || 500;
     const message = err.message || "Internal Server Error";
 
-    // Send a JSON response with the error details
     res.status(statusCode).json({
         status: "error",
         statusCode,
