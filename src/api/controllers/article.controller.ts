@@ -12,6 +12,9 @@ export class ArticleController implements IArticleController {
     constructor(
         @inject('IArticleService') private articleService: IArticleService
     ) { console.log("article controller created") }
+    async searchArticle(req: Request, res: Response, next: NextFunction): Promise<void> {
+        throw new Error("Method not implemented.");
+    }
     async findArticleByTitle(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
             const title = req.query.title || req.params.title;

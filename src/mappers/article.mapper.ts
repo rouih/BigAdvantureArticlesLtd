@@ -12,25 +12,25 @@ export class ArticleMapper implements IArticleMapper {
     }
 
     toCreateArticleDto(article: IArticle): CreateArticleDto {
-        return plainToClass(CreateArticleDto, article);
+        return new CreateArticleDto({ title: article.title });
     }
 
     toUpdateArticleDto(article: IArticle): UpdateArticleDto {
-        return plainToClass(UpdateArticleDto, article);
+        return new UpdateArticleDto({ title: article.title });
     }
     toDeleteArticleDto(article: IArticle): DeleteArticleDto {
-        return plainToClass(DeleteArticleDto, article);
+        return new DeleteArticleDto({ title: article.title });
     }
     toCreateArticleResponseDto(article: IArticle): CreateArticleResponseDto {
-        return plainToClass(CreateArticleResponseDto, article);
+        return new CreateArticleResponseDto({ title: article.title });
     }
     toUpdateArticleResponseDto(article: IArticle): UpdateArticleResponseDto {
-        return plainToClass(UpdateArticleResponseDto, article);
+        return new UpdateArticleResponseDto({ title: article.title });
     }
     toDeleteArticleResponseDto(article: IArticle): DeleteArticleResponseDto {
-        return plainToClass(DeleteArticleResponseDto, article);
+        return new DeleteArticleResponseDto({ title: article.title });
     }
     toFindArticleResponseDto(article: IArticle): FindArticleResponseDto {
-        return plainToClass(FindArticleResponseDto, article);
+        return new FindArticleResponseDto({ title: article.title, body: article.body, author: article.author });
     }
 }

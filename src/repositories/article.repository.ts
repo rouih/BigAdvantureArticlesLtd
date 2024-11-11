@@ -1,11 +1,16 @@
 import { injectable } from "tsyringe";
 import { IArticleRepository } from "../interfaces/article.interface";
 import ArticleModel, { IArticle } from "../models/article.model";
-import { CreateArticleDto, DeleteArticleDto, FindArticleDto, UpdateArticleDto } from "../dtos/article.dto";
+import { CreateArticleDto, DeleteArticleDto, FindArticleDto, SearchArticleDto, SearchArticleResponseDto, UpdateArticleDto } from "../dtos/article.dto";
+import { elasticClient, updateArticleIndex } from "../elastic";
+import logger from "../utils/winston-logger";
 
 @injectable()
 export class ArticleRepository implements IArticleRepository {
-    constructor() { console.log("article repository created") }
+    constructor() { }
+    search(words: SearchArticleDto): Promise<SearchArticleResponseDto> {
+        throw new Error("Method not implemented.");
+    }
     async update(article: UpdateArticleDto): Promise<IArticle> {
         const updatedArticle = await ArticleModel.findOneAndUpdate({ id: article.id }, article, { new: true }).lean();
         if (!updatedArticle) {
@@ -35,6 +40,9 @@ export class ArticleRepository implements IArticleRepository {
 
     async create(article: CreateArticleDto): Promise<IArticle> {
         const newArticle = new ArticleModel(article);
+
+        await updateArticleIndex(newArticle);
+        logger.info("article saved");
         return await newArticle.save();
     }
 

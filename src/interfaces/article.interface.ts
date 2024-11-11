@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { CreateArticleDto, CreateArticleResponseDto, DeleteArticleDto, DeleteArticleResponseDto, FindAllArticleResponseDto as FindAllArticleResponseDto, FindArticleDto, FindArticleResponseDto, UpdateArticleDto, UpdateArticleResponseDto } from "../dtos/article.dto";
+import { CreateArticleDto, CreateArticleResponseDto, DeleteArticleDto, DeleteArticleResponseDto, FindAllArticleResponseDto as FindAllArticleResponseDto, FindArticleDto, FindArticleResponseDto, SearchArticleDto, SearchArticleResponseDto, UpdateArticleDto, UpdateArticleResponseDto } from "../dtos/article.dto";
 import { IArticle } from "../models/article.model";
 
 export interface IArticleRepository {
@@ -8,6 +8,7 @@ export interface IArticleRepository {
     create(article: CreateArticleDto): Promise<IArticle>;
     update(article: UpdateArticleDto): Promise<IArticle>;
     delete(article: DeleteArticleDto): Promise<IArticle>;
+    search(words: SearchArticleDto): Promise<SearchArticleResponseDto>;
 }
 
 export interface IArticleService {
@@ -16,6 +17,7 @@ export interface IArticleService {
     createArticle(article: CreateArticleDto): Promise<CreateArticleResponseDto>;
     updateArticle(article: UpdateArticleDto): Promise<UpdateArticleResponseDto>;
     deleteArticle(article: DeleteArticleDto): Promise<DeleteArticleResponseDto>;
+    search(words: SearchArticleDto): Promise<SearchArticleResponseDto>;
 }
 
 export interface IArticleController {
@@ -24,4 +26,5 @@ export interface IArticleController {
     createArticle(req: Request, res: Response, next: NextFunction): Promise<void>;
     updateArticle(req: Request, res: Response, next: NextFunction): Promise<void>;
     deleteArticle(req: Request, res: Response, next: NextFunction): Promise<void>;
+    searchArticle(req: Request, res: Response, next: NextFunction): Promise<void>;
 }

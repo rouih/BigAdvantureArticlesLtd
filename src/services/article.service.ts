@@ -1,7 +1,7 @@
 import 'reflect-metadata'
 import { inject, injectable } from "tsyringe";
 import { IArticleRepository, IArticleService } from "../interfaces/article.interface";
-import { CreateArticleDto, UpdateArticleDto, DeleteArticleDto, CreateArticleResponseDto, DeleteArticleResponseDto, FindArticleResponseDto, UpdateArticleResponseDto, FindArticleDto } from '../dtos/article.dto';
+import { CreateArticleDto, UpdateArticleDto, DeleteArticleDto, CreateArticleResponseDto, DeleteArticleResponseDto, FindArticleResponseDto, UpdateArticleResponseDto, FindArticleDto, SearchArticleDto, SearchArticleResponseDto } from '../dtos/article.dto';
 import { IArticle } from '../models/article.model';
 import { IArticleMapper } from '../interfaces/mappers/article-mapper.interface';
 
@@ -11,6 +11,9 @@ export class ArticleService implements IArticleService {
         @inject("IArticleMapper") private articleMapper: IArticleMapper,
         @inject("IArticleRepository") private articleRepository: IArticleRepository
     ) { console.log("article service created") }
+    search(words: SearchArticleDto): Promise<SearchArticleResponseDto> {
+        throw new Error('Method not implemented.');
+    }
 
     async findArticleByTitle(articleTitle: FindArticleDto): Promise<FindArticleResponseDto> {
         const article = await this.articleRepository.findArticleByTitle(articleTitle);
