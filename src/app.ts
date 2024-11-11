@@ -1,9 +1,11 @@
-import "reflect-metadata";
+import 'reflect-metadata';
 import express from "express";
 import logger from "./utils/winston-logger";
 import { errorHandler } from "./utils/middlewares/error.middleware";
+import router from "./api/routes/routes.index";
+import initMongoInstance from "./configs/mongoose.config";
+import { container } from "./configs/container.config";
 // import router from "./src/api/routes/routes-index";
-// import initMongoInstance from "./src/mongoose.config";
 // import logger from "./src/utils/winston-logger";
 // import { errorHandler } from "./src/utils/middlewares/error.middleware";
 // import { passport } from "./src/utils/middlewares/passport.config";
@@ -11,11 +13,10 @@ import { errorHandler } from "./utils/middlewares/error.middleware";
 
 const app = express();
 app.use(express.json());
+app.use(router);
 app.use(express.urlencoded({ extended: true }));
 app.use(errorHandler)
-app.get("/", (req, res) => {
-    res.send("Hello World!");
-});
+initMongoInstance();
 app.listen(3000, () => {
     logger.info("Server is running on port 3000", { service: "Main App" });
 });
