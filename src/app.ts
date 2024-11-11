@@ -5,7 +5,8 @@ import { errorHandler } from "./utils/middlewares/error.middleware";
 import router from "./api/routes/routes.index";
 import initMongoInstance from "./configs/mongoose.config";
 import { container } from "./configs/container.config";
-import { initElastic } from './elastic';
+import { initElastic } from './utils/elastic/elastic.index';
+import { redisClient } from './utils/redis-client';
 // import router from "./src/api/routes/routes-index";
 // import logger from "./src/utils/winston-logger";
 // import { errorHandler } from "./src/utils/middlewares/error.middleware";
@@ -14,8 +15,7 @@ import { initElastic } from './elastic';
 
 const initServices = async () => {
     try {
-        await initMongoInstance();
-        await initElastic();
+        Promise.all([initMongoInstance(), initElastic(), redisClient.connect()]);
     } catch (err) {
         logger.error(err);
         return;

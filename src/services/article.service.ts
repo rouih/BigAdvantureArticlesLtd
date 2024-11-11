@@ -11,8 +11,11 @@ export class ArticleService implements IArticleService {
         @inject("IArticleMapper") private articleMapper: IArticleMapper,
         @inject("IArticleRepository") private articleRepository: IArticleRepository
     ) { console.log("article service created") }
+
+
     search(words: SearchArticleDto): Promise<SearchArticleResponseDto> {
-        throw new Error('Method not implemented.');
+        const searchResult = this.articleRepository.search(words);
+        return searchResult;
     }
 
     async findArticleByTitle(articleTitle: FindArticleDto): Promise<FindArticleResponseDto> {

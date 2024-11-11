@@ -114,7 +114,7 @@ export class SearchArticleDto {
     constructor(partial: Partial<SearchArticleDto>) {
         Object.assign(this, partial);
     }
-    @IsString()
+    @IsArray()
     @IsNotEmpty()
     words: string[];
 }

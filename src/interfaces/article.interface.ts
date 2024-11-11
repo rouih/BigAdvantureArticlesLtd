@@ -26,5 +26,5 @@ export interface IArticleController {
     createArticle(req: Request, res: Response, next: NextFunction): Promise<void>;
     updateArticle(req: Request, res: Response, next: NextFunction): Promise<void>;
     deleteArticle(req: Request, res: Response, next: NextFunction): Promise<void>;
-    searchArticle(req: Request, res: Response, next: NextFunction): Promise<void>;
+    search(req: Request, res: Response, next: NextFunction): Promise<void>;
 }

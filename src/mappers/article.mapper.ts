@@ -1,12 +1,11 @@
 import { injectable } from "tsyringe";
 import { IArticleMapper } from "../interfaces/mappers/article-mapper.interface";
 import { IArticle } from "../models/article.model";
-import { CreateArticleDto, UpdateArticleDto, DeleteArticleDto, FindArticleResponseDto, FindAllArticleResponseDto, CreateArticleResponseDto, UpdateArticleResponseDto, DeleteArticleResponseDto } from "../dtos/article.dto";
+import { CreateArticleDto, UpdateArticleDto, DeleteArticleDto, FindArticleResponseDto, FindAllArticleResponseDto, CreateArticleResponseDto, UpdateArticleResponseDto, DeleteArticleResponseDto, ArticleWordPositionDto } from "../dtos/article.dto";
 import { plainToClass } from "class-transformer";
 
 @injectable()
 export class ArticleMapper implements IArticleMapper {
-
     toFindAllArticleResponseDto(articles: IArticle[]): FindArticleResponseDto[] {
         return articles.map(article => this.toFindArticleResponseDto(article));
     }

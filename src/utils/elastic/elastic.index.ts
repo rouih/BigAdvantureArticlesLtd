@@ -1,5 +1,5 @@
 import { Client } from "@elastic/elasticsearch";
-import logger from "../utils/winston-logger";
+import logger from "../winston-logger";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -46,6 +46,8 @@ async function updateArticleIndex(savedArticle: any) {
         },
     });
 }
+
+//TODO: implement a delete index by title
 
 const initElastic = async () => {
     await createArticleIndex();

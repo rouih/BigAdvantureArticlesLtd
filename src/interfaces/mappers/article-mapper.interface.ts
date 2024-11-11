@@ -1,6 +1,6 @@
 //this class mappes from the model to the dto
 import { IArticle } from "../../models/article.model";
-import { CreateArticleDto, UpdateArticleDto, DeleteArticleDto, FindArticleResponseDto, FindAllArticleResponseDto, CreateArticleResponseDto, UpdateArticleResponseDto, DeleteArticleResponseDto } from "../../dtos/article.dto";
+import { CreateArticleDto, UpdateArticleDto, DeleteArticleDto, FindArticleResponseDto, FindAllArticleResponseDto, CreateArticleResponseDto, UpdateArticleResponseDto, DeleteArticleResponseDto, ArticleWordPositionDto } from "../../dtos/article.dto";
 
 export interface IArticleMapper {
     toFindArticleResponseDto(article: IArticle): FindArticleResponseDto;
