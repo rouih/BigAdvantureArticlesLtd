@@ -21,13 +21,16 @@ export class ArticleService implements IArticleService {
         return this.articleMapper.toFindAllArticleResponseDto(allArcitcles);
     }
     async createArticle(article: CreateArticleDto): Promise<CreateArticleResponseDto> {
-        throw new Error('Method not implemented.');
+        const newArticle = await this.articleRepository.create(article);
+        return this.articleMapper.toCreateArticleResponseDto(newArticle);
     }
     async updateArticle(article: UpdateArticleDto): Promise<UpdateArticleResponseDto> {
-        throw new Error('Method not implemented.');
+        const updatedArticle = await this.articleRepository.update(article);
+        return this.articleMapper.toUpdateArticleResponseDto(updatedArticle);
     }
     async deleteArticle(article: DeleteArticleDto): Promise<DeleteArticleResponseDto> {
-        throw new Error('Method not implemented.');
+        const deletedArticle = await this.articleRepository.delete(article);
+        return this.articleMapper.toDeleteArticleResponseDto(deletedArticle);
     }
 
 }

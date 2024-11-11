@@ -7,7 +7,7 @@ export interface IArticleRepository {
     findAll(): Promise<IArticle[]>;
     create(article: CreateArticleDto): Promise<IArticle>;
     update(article: UpdateArticleDto): Promise<IArticle>;
-    delete(id: DeleteArticleDto): Promise<IArticle>;
+    delete(article: DeleteArticleDto): Promise<IArticle>;
 }
 
 export interface IArticleService {

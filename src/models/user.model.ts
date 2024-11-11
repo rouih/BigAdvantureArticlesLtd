@@ -1,9 +1,10 @@
 import mongoose, { Document, mongo, Schema } from "mongoose";
-
+import passportLocalMongoose from 'passport-local-mongoose'
 
 export interface IUser extends Document {
     username: string;
     fullName: string;
+    token?: string;
 }
 
 const UserSchema: Schema = new Schema({
@@ -13,6 +14,8 @@ const UserSchema: Schema = new Schema({
 
 //add here pasport plugin
 
-const userModel = mongoose.model<IUser>("User", UserSchema);
+UserSchema.plugin(passportLocalMongoose)
 
-export default userModel;
+const UserModel = mongoose.model<IUser>("User", UserSchema);
+
+export default UserModel;

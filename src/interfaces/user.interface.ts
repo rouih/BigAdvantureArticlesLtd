@@ -1,28 +1,29 @@
-import { CreateUserResponseDto, DeleteUserResponseDto, GetUserDto, GetUserResponseDto, UpdateUserResponseDto } from "../dtos/user.dto";
+import { Request, Response, NextFunction } from "express";
+import { CreateUserDto, CreateUserResponseDto, DeleteUserDto, DeleteUserResponseDto, FindUserDto, FindUserResponseDto, UpdateUserDto, UpdateUserResponseDto } from "../dtos/user.dto";
 import { IUser } from "../models/user.model";
 
 export interface IUserRepository {
-    findById(id: string): Promise<IUser>;
+    findByUserName(user: FindUserDto): Promise<IUser>;
     findAll(): Promise<IUser[]>;
-    create(user: any): Promise<IUser>;
-    update(user: any): Promise<IUser>;
-    delete(id: string): Promise<IUser>;
+    create(user: CreateUserDto): Promise<IUser>;
+    update(user: UpdateUserDto): Promise<IUser>;
+    delete(id: DeleteUserDto): Promise<IUser>;
 }
 
 export interface IUserService {
-    getUserById(id: string): Promise<IUser>;
-    getAllUsers(): Promise<IUser[]>;
-    createUser(user: IUser): Promise<IUser>;
-    updateUser(user: IUser): Promise<IUser>;
-    deleteUser(id: string): Promise<IUser>;
+    getUserById(user: FindUserDto): Promise<FindUserResponseDto>;
+    getAllUsers(): Promise<FindUserResponseDto[]>;
+    createUser(user: CreateUserDto): Promise<CreateUserResponseDto>;
+    updateUser(user: UpdateUserDto): Promise<UpdateUserResponseDto>;
+    deleteUser(id: DeleteUserDto): Promise<DeleteUserResponseDto>;
 
 }
 
 export interface IUserController {
-    getUserById(req: Request, res: Response): Promise<GetUserResponseDto>;
-    getAllUsers(req: Request, res: Response): Promise<GetUserResponseDto[]>;
-    createUser(req: Request, res: Response): Promise<CreateUserResponseDto>;
-    updateUser(req: Request, res: Response): Promise<UpdateUserResponseDto>;
-    deleteUser(req: Request, res: Response): Promise<DeleteUserResponseDto>;
+    getUserById(req: Request, res: Response, next: NextFunction): Promise<void>;
+    getAllUsers(req: Request, res: Response, next: NextFunction): Promise<void>;
+    createUser(req: Request, res: Response, next: NextFunction): Promise<void>;
+    updateUser(req: Request, res: Response, next: NextFunction): Promise<void>;
+    deleteUser(req: Request, res: Response, next: NextFunction): Promise<void>;
 
 }

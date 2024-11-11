@@ -42,9 +42,11 @@ export class UpdateArticleDto {
     @IsString()
     @IsNotEmpty()
     id: string;
+
     @IsString()
     @IsOptional()
     title: string;
+
     @IsString()
     @IsOptional()
     body: string;

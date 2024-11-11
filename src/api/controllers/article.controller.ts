@@ -26,7 +26,6 @@ export class ArticleController implements IArticleController {
     }
     async findAllArticles(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
-            logger.info("findall")
             const articles = await this.articleService.findAllArticles();
             res.status(200).json(articles);
         } catch (err) {
@@ -42,10 +41,20 @@ export class ArticleController implements IArticleController {
         }
     }
     async updateArticle(req: Request, res: Response, next: NextFunction): Promise<void> {
-        throw new Error("Method not implemented.");
+        try {
+            const article = await this.articleService.updateArticle(req.body);
+            res.status(200).json(article);
+        } catch (err) {
+            next(err);
+        }
     }
     async deleteArticle(req: Request, res: Response, next: NextFunction): Promise<void> {
-        throw new Error("Method not implemented.");
+        try {
+            const article = await this.articleService.deleteArticle(req.body);
+            res.status(200).json(article);
+        } catch (err) {
+            next(err);
+        }
     }
 
 

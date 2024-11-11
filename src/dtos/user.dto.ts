@@ -33,13 +33,13 @@ export class DeleteUserDto {
     userName!: string;
 }
 
-export class GetUserDto {
+export class FindUserDto {
     @IsOptional()
     @IsString()
     userName?: string;
 }
 
-export class GetUserResponseDto {
+export class FindUserResponseDto {
     @IsString()
     userName!: string;
 
@@ -50,8 +50,8 @@ export class GetUserResponseDto {
 export class GetAllUserResponseDto {
     @IsArray()
     @ValidateNested({ each: true })
-    @Type(() => GetUserResponseDto)
-    users!: GetUserResponseDto[];
+    @Type(() => FindUserResponseDto)
+    users!: FindUserResponseDto[];
 }
 
 export class DeleteUserResponseDto {
@@ -63,9 +63,31 @@ export class DeleteUserResponseDto {
     message!: string;
 }
 
+export class CreateUserDto {
+    @IsString()
+    @IsNotEmpty()
+    username!: string;
+
+    @IsString()
+    @IsNotEmpty()
+    password!: string;
+
+    @IsString()
+    @IsNotEmpty()
+    fullName!: string
+}
+
 export class CreateUserResponseDto {
+    constructor(partial: Partial<CreateUserResponseDto>) {
+        Object.assign(this, partial);
+    }
+
     @IsString()
     userName!: string;
+
+    @IsString()
+    @IsNotEmpty()
+    token!: string;
 }
 
 export class UpdateUserResponseDto {
