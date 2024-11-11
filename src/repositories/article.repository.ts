@@ -17,7 +17,8 @@ export class ArticleRepository implements IArticleRepository {
         const cacheKey = `search:${words.words.join(',')}`;
         const cachedRes = await redisClient.get(cacheKey);
         if (cachedRes) {
-            return new SearchArticleResponseDto(JSON.parse(cachedRes.toString()));
+            logger.info("Search result found in redis");
+            return cachedRes as SearchArticleResponseDto;
         }
 
         //Search for articles that contain any of the words
@@ -32,35 +33,7 @@ export class ArticleRepository implements IArticleRepository {
         await redisClient.set(cacheKey, wordPositions, 60);
         return wordPositions
     }
-    private processTermVectors(termVectorsResponse: MtermvectorsResponse, words: string[]): SearchArticleResponseDto {
-        const wordPositions: SearchArticleResponseDto = {};
 
-        for (const doc of termVectorsResponse.docs) {
-            const articleId = doc._id;
-            const terms = doc.term_vectors?.body?.terms;
-
-            if (!terms) continue;
-
-            for (const word of words) {
-                const termInfo = terms[word];
-
-                if (termInfo) {
-                    const offsets = termInfo.tokens.map((token) => token.start_offset);
-
-                    if (!wordPositions[word]) {
-                        wordPositions[word] = [];
-                    }
-
-                    wordPositions[word].push({
-                        articleId: articleId,
-                        offsets: offsets,
-                    });
-                }
-            }
-        }
-
-        return wordPositions;
-    }
     private async retrieveTermVectors(articleIds: string[], words: string[]): Promise<any> {
         const termVectors = await elasticClient.mtermvectors({
             index: 'articles',
