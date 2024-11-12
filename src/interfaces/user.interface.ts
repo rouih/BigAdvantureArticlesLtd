@@ -6,8 +6,6 @@ export interface IUserRepository {
     findByUserName(user: FindUserDto): Promise<IUser>;
     findAll(): Promise<IUser[]>;
     create(user: CreateUserDto): Promise<IUser>;
-    update(user: UpdateUserDto): Promise<IUser>;
-    delete(id: DeleteUserDto): Promise<IUser>;
 }
 
 export interface IUserService {

@@ -14,6 +14,10 @@ const ArticleSchema: Schema = new Schema({
     author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
 });
 
+ArticleSchema.index({ author: 1 });
+ArticleSchema.index({ title: 1 });
+
+
 
 const ArticleModel = mongoose.model<IArticle>("Article", ArticleSchema);
 

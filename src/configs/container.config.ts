@@ -14,24 +14,31 @@ import { UserMapper } from "../mappers/user.mapper";
 import { IUserMapper } from "../interfaces/mappers/user-mapper.interface";
 import { AuthService } from "../services/auth.service";
 import { IAuthService } from "../interfaces/auth.interface";
+import { CommentMapper } from "../mappers/comment.mapper";
+import { ICommentMapper } from "../interfaces/mappers/comment-mapper.interface";
+import { CommentService } from "../services/comment.service";
+import { CommentController } from "../api/controllers/comment.controller";
+import { CommentRepository } from "../repositories/comment.repository";
 
 //Register repositories
 container.registerSingleton<IUserRepository>("IUserRepository", UserRepository);
 container.registerSingleton<IArticleRepository>("IArticleRepository", ArticleRepository);
-//container.registerSingleton<ICommentRepository>("ICommentRepository", CommentRepository);
+container.registerSingleton<ICommentRepository>("ICommentRepository", CommentRepository);
 
 //register mappers
-container.registerSingleton<IArticleMapper>("IArticleMapper", ArticleMapper);
 container.registerSingleton<IUserMapper>("IUserMapper", UserMapper);
+container.registerSingleton<IArticleMapper>("IArticleMapper", ArticleMapper);
+container.registerSingleton<ICommentMapper>("ICommentMapper", CommentMapper);
+
 //Register services
 container.registerSingleton<IUserService>("IUserService", UserService);
-//container.registerSingleton<ICommentService>("ICommentService", CommentService);
 container.registerSingleton<IArticleService>("IArticleService", ArticleService);
+container.registerSingleton<ICommentService>("ICommentService", CommentService);
 container.registerSingleton<IAuthService>("IAuthService", AuthService);
 
 //Register controllers
 container.registerSingleton<IUserController>("IUserController", UserController);
 container.registerSingleton<IArticleController>("IArticleController", ArticleController);
-//container.registerSingleton<ICommentController>("ICommentController", CommentController);
+container.registerSingleton<ICommentController>("ICommentController", CommentController);
 
 export { container }

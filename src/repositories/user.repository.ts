@@ -6,13 +6,7 @@ export class UserRepository implements IUserRepository {
     constructor() {
 
     }
-    login(user: LoginUserDto): Promise<LoginUserResponseDto> {
-        throw new Error("Method not implemented.");
-    }
     findByUserName(user: FindUserDto): Promise<IUser> {
-        throw new Error("Method not implemented.");
-    }
-    delete(id: DeleteUserDto): Promise<IUser> {
         throw new Error("Method not implemented.");
     }
     async findAll(): Promise<IUser[]> {
@@ -31,9 +25,6 @@ export class UserRepository implements IUserRepository {
                 }
             );
         });
-    }
-    async update(user: any): Promise<IUser> {
-        throw new Error("Method not implemented.");
     }
 
 
