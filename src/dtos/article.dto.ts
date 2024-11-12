@@ -60,52 +60,7 @@ export class CreateArticleResponseDto {
     title: string;
 }
 
-export class UpdateArticleDto {
-    constructor(partial: Partial<UpdateArticleDto>) {
-        Object.assign(this, partial);
-    }
-    @IsString()
-    @IsNotEmpty()
-    id: string;
 
-    @IsString()
-    @IsOptional()
-    title: string;
-
-    @IsString()
-    @IsOptional()
-    body: string;
-
-    @IsString()
-    @IsOptional()
-    author: string;
-}
-
-export class UpdateArticleResponseDto {
-    constructor(partial: Partial<UpdateArticleResponseDto>) {
-        Object.assign(this, partial);
-    }
-    @IsString()
-    @IsNotEmpty()
-    title: string;
-
-    @IsString()
-    @IsOptional()
-    body?: string;
-
-    @IsString()
-    @IsOptional()
-    author?: string;
-}
-
-export class DeleteArticleDto {
-    constructor(partial: Partial<DeleteArticleDto>) {
-        Object.assign(this, partial);
-    }
-    @IsString()
-    @IsNotEmpty()
-    title: string;
-}
 
 export class SearchArticleDto {
     constructor(partial: Partial<SearchArticleDto>) {
@@ -125,19 +80,27 @@ export class SearchArticleResponseDto {
 }
 
 export class ArticleWordPositionDto {
+    constructor(partial: Partial<ArticleWordPositionDto>) {
+        Object.assign(this, partial);
+    }
     articleId: string;
     offsets: number[];
 }
 
-export class DeleteArticleResponseDto {
-    constructor(partial: Partial<DeleteArticleResponseDto>) {
+export class FindArticleWithMostWordOccurrencesDto {
+    constructor(partial: Partial<FindArticleWithMostWordOccurrencesDto>) {
         Object.assign(this, partial);
     }
     @IsString()
     @IsNotEmpty()
-    title!: string;
+    word: string;
+}
 
+export class FindArticleWithMostWordOccurrencesResponseDto {
+    constructor(partial: Partial<FindArticleWithMostWordOccurrencesResponseDto>) {
+        Object.assign(this, partial);
+    }
     @IsString()
-    @IsOptional()
-    message!: string;
+    @IsNotEmpty()
+    id: string;
 }

@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import logger from "../utils/winston-logger";
 
-dotenv.config(); // Load environment variables from .env file
+dotenv.config();
 
 const initMongoInstance = async () => {
     const mongoUri =

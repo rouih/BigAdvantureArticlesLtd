@@ -1,18 +1,19 @@
 import { injectable } from "tsyringe";
 import { IUserMapper } from "../interfaces/mappers/user-mapper.interface";
 import { IUser } from "../models/user.model";
-import { CreateUserResponseDto, UpdateUserResponseDto, FindUserResponseDto } from "../dtos/user.dto";
+import { CreateUserResponseDto, FindUserResponseDto, FindUserDto } from "../dtos/user.dto";
 import { plainToClass } from "class-transformer";
 
 @injectable()
 export class UserMapper implements IUserMapper {
-    toCreateUserResponseDto(user: IUser): CreateUserResponseDto {
-        return new CreateUserResponseDto({ userName: user.username });
+    toFindUserDto(id: string): FindUserDto {
+        return new FindUserDto({ userId: id });
     }
-    toUpdateUserResponseDto(user: IUser): UpdateUserResponseDto {
-        return new UpdateUserResponseDto({ userName: user.username });
+    toCreateUserResponseDto(user: IUser): CreateUserResponseDto {
+        return new CreateUserResponseDto({ userName: user.userName });
     }
     toFindUserResponseDto(user: IUser): FindUserResponseDto {
-        return plainToClass(FindUserResponseDto, user);
+        return new FindUserResponseDto({ userName: user.userName, fullName: user.fullName });
     }
+
 }

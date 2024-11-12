@@ -10,36 +10,20 @@ import {
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
-export class UpdateUserDto {
-    @IsString()
-    @IsNotEmpty()
-    userName!: string;
-
-    @IsOptional()
-    @IsString()
-    name?: string;
-
-    @IsOptional()
-    @IsString()
-    password?: string;
-
-    @IsOptional()
-    @IsString()
-    fullName?: string;
-}
-
-export class DeleteUserDto {
-    @IsString()
-    userName!: string;
-}
 
 export class FindUserDto {
+    constructor(partial: Partial<FindUserDto>) {
+        Object.assign(this, partial);
+    }
     @IsOptional()
     @IsString()
-    userName?: string;
+    userId?: string;
 }
 
 export class FindUserResponseDto {
+    constructor(partial: Partial<FindUserResponseDto>) {
+        Object.assign(this, partial);
+    }
     @IsString()
     userName!: string;
 
@@ -54,16 +38,11 @@ export class GetAllUserResponseDto {
     users!: FindUserResponseDto[];
 }
 
-export class DeleteUserResponseDto {
-    @IsString()
-    userName!: string;
-
-    @IsString()
-    @IsOptional()
-    message!: string;
-}
-
 export class CreateUserDto {
+    constructor(partial: Partial<CreateUserDto>) {
+        Object.assign(this, partial);
+    }
+
     @IsString()
     @IsNotEmpty()
     username!: string;
@@ -84,14 +63,6 @@ export class CreateUserResponseDto {
 
     @IsString()
     userName!: string;
-}
-
-export class UpdateUserResponseDto {
-    constructor(partial: Partial<UpdateUserResponseDto>) {
-    }
-    @IsString()
-    userName!: string;
-
 }
 
 export class LoginUserDto {
