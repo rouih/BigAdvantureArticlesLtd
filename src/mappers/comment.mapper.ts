@@ -6,7 +6,7 @@ import { IComment } from "../models/comment.model";
 @injectable()
 export class CommentMapper implements ICommentMapper {
 
-    toGetAllCommentsByArticleDto(articleId: string): FindCommentsByArticleDto {
+    toFindAllCommentsByArticleDto(articleId: string): FindCommentsByArticleDto {
         return new FindCommentsByArticleDto({ articleId: articleId });
     }
     toFindCommentResponseDto(comment: IComment): FindCommentResponseDto {
@@ -15,8 +15,7 @@ export class CommentMapper implements ICommentMapper {
     toCreateCommentResponseDto(comment: IComment): CreateCommentResponseDto {
         return new CreateCommentResponseDto({ id: comment.id, content: comment.content });
     }
-
-    toGetCommentByIdDto(commentId: string): FindCommentByIdDto {
+    toFindCommentByIdDto(commentId: string): FindCommentByIdDto {
         return new FindCommentByIdDto({ commentId: commentId });
     }
 }

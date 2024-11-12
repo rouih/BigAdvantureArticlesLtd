@@ -1,11 +1,6 @@
 import { inject, injectable } from "tsyringe";
 import { IArticleController, IArticleService } from "../../interfaces/article.interface";
-import { IUser } from "../../models/user.model";
-import { FindArticleResponseDto, FindAllArticleResponseDto, CreateArticleResponseDto, UpdateArticleResponseDto, DeleteArticleResponseDto, FindArticleDto } from "../../dtos/article.dto";
 import { Request, Response, NextFunction } from "express";
-import { IArticleMapper } from "../../interfaces/mappers/article-mapper.interface";
-import winston from "winston/lib/winston/config";
-import logger from "../../utils/winston-logger";
 import { RequestWithUser } from "../../types/express";
 
 @injectable()
@@ -34,9 +29,9 @@ export class ArticleController implements IArticleController {
             next(err);
         }
     }
-    async findAllArticles(req: Request, res: Response, next: NextFunction): Promise<void> {
+    async findAll(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
-            const articles = await this.articleService.findAllArticles();
+            const articles = await this.articleService.findAll();
             res.status(200).json(articles);
         } catch (err) {
             next(err);
@@ -50,22 +45,5 @@ export class ArticleController implements IArticleController {
             next(err);
         }
     }
-    async updateArticle(req: Request, res: Response, next: NextFunction): Promise<void> {
-        try {
-            const article = await this.articleService.updateArticle(req.body);
-            res.status(200).json(article);
-        } catch (err) {
-            next(err);
-        }
-    }
-    async deleteArticle(req: Request, res: Response, next: NextFunction): Promise<void> {
-        try {
-            const article = await this.articleService.deleteArticle(req.body);
-            res.status(200).json(article);
-        } catch (err) {
-            next(err);
-        }
-    }
-
 
 }

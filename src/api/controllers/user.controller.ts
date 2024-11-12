@@ -1,16 +1,17 @@
 import { NextFunction, Request, Response } from "express";
 import { inject, injectable } from "tsyringe";
 import { IUserController, IUserService } from "../../interfaces/user.interface";
-import { FindUserDto, CreateUserDto, UpdateUserDto, DeleteUserDto, CreateUserResponseDto, DeleteUserResponseDto, FindUserResponseDto, UpdateUserResponseDto } from "../../dtos/user.dto";
 import { passport } from "../../configs/passport.config";
 import type { RequestWithUser } from "../../types/express.d.ts";
 import { IAuthService } from "../../interfaces/auth.interface";
 import logger from "../../utils/winston-logger";
+import { IUserMapper } from "../../interfaces/mappers/user-mapper.interface";
 @injectable()
 export class UserController implements IUserController {
     constructor(
         @inject("IUserService") private userService: IUserService,
-        @inject("IAuthService") private authService: IAuthService
+        @inject("IAuthService") private authService: IAuthService,
+        @inject("IUserMapper") private userMapper: IUserMapper
     ) { }
     async logInUser(req: RequestWithUser, res: Response, next: NextFunction): Promise<void> {
         logger.info("User requesting login");
@@ -35,10 +36,21 @@ export class UserController implements IUserController {
         })(req, res, next); // Pass req, res, and next as parameters
     }
     async getUserById(req: Request, res: Response, next: NextFunction): Promise<void> {
-        throw new Error("Method not implemented.");
+        try {
+            const userIdDto = this.userMapper.toFindUserDto(req.params.id);
+            const user = await this.userService.getUserById(userIdDto);
+            res.status(200).json(user);
+        } catch (err) {
+            next(err);
+        }
     }
     async getAllUsers(req: Request, res: Response, next: NextFunction): Promise<void> {
-        throw new Error("Method not implemented.");
+        try {
+            const users = await this.userService.getAllUsers();
+            res.status(200).json(users);
+        } catch (err) {
+            next(err);
+        }
     }
     async createUser(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
@@ -49,12 +61,6 @@ export class UserController implements IUserController {
         } catch (err) {
             next(err);
         }
-    }
-    async updateUser(req: Request, res: Response, next: NextFunction): Promise<void> {
-        throw new Error("Method not implemented.");
-    }
-    async deleteUser(req: Request, res: Response, next: NextFunction): Promise<void> {
-        throw new Error("Method not implemented.");
     }
 
 }

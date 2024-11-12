@@ -2,7 +2,7 @@ import mongoose, { Document, mongo, Schema } from "mongoose";
 import passportLocalMongoose from 'passport-local-mongoose'
 
 export interface IUser extends Document {
-    username: string;
+    userName: string;
     fullName: string;
     token?: string;
 }
@@ -12,7 +12,6 @@ const UserSchema: Schema = new Schema({
     fullName: { type: String, required: true },
 });
 
-//add here pasport plugin
 
 UserSchema.plugin(passportLocalMongoose)
 

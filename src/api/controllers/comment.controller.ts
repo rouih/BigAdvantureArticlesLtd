@@ -24,7 +24,7 @@ export class CommentController implements ICommentController {
     async findCommentsByArticle(req: RequestWithUser, res: Response, next: NextFunction): Promise<void> {
         try {
             const articleId = req.params.articleId;
-            const comments = await this.commentService.findCommentsByArticle(this.commentMapper.toGetAllCommentsByArticleDto(articleId));
+            const comments = await this.commentService.findCommentsByArticle(this.commentMapper.toFindAllCommentsByArticleDto(articleId));
             res.status(200).json(comments);
         } catch (e) {
             next(e);
@@ -33,7 +33,7 @@ export class CommentController implements ICommentController {
     async findCommentById(req: RequestWithUser, res: Response, next: NextFunction): Promise<void> {
         try {
             const commentId = req.params.id
-            const comment = await this.commentService.findCommentById(this.commentMapper.toGetCommentByIdDto(commentId));
+            const comment = await this.commentService.findCommentById(this.commentMapper.toFindCommentByIdDto(commentId));
             res.status(200).json(comment);
         } catch (e) {
             next(e);

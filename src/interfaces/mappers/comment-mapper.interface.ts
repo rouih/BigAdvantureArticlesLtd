@@ -3,7 +3,7 @@ import { IComment } from "../../models/comment.model";
 
 export interface ICommentMapper {
     toFindCommentResponseDto(comment: IComment): FindCommentResponseDto;
-    toGetCommentByIdDto(commentId: string): FindCommentByIdDto
+    toFindCommentByIdDto(commentId: string): FindCommentByIdDto
     toCreateCommentResponseDto(comment: IComment): CreateCommentResponseDto;
-    toGetAllCommentsByArticleDto(articleId: string): FindCommentsByArticleDto;
+    toFindAllCommentsByArticleDto(articleId: string): FindCommentsByArticleDto;
 }

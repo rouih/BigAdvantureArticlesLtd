@@ -47,8 +47,6 @@ async function updateArticleIndex(savedArticle: any) {
     });
 }
 
-//TODO: implement a delete index by title
-
 const initElastic = async () => {
     await createArticleIndex();
 };

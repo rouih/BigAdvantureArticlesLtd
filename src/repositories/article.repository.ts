@@ -1,13 +1,12 @@
 import { inject, injectable } from "tsyringe";
 import { IArticleRepository } from "../interfaces/article.interface";
 import ArticleModel, { IArticle } from "../models/article.model";
-import { CreateArticleDto, DeleteArticleDto, FindArticleDto, SearchArticleDto, SearchArticleResponseDto, UpdateArticleDto } from "../dtos/article.dto";
+import { CreateArticleDto, FindArticleDto, SearchArticleDto, SearchArticleResponseDto } from "../dtos/article.dto";
 import { elasticClient, updateArticleIndex } from "../utils/elastic/elastic.index";
 import logger from "../utils/winston-logger";
 import { redisClient } from "../utils/redis-client";
 import { IArticleMapper } from "../interfaces/mappers/article-mapper.interface";
 import { MtermvectorsResponse } from "@elastic/elasticsearch/lib/api/types";
-import { TermvectorsResponse } from "@elastic/elasticsearch/lib/api/typesWithBodyKey";
 
 @injectable()
 export class ArticleRepository implements IArticleRepository {
@@ -99,21 +98,6 @@ export class ArticleRepository implements IArticleRepository {
         return searchResponse.hits.hits.map((hit) => hit._id);
     }
 
-    async update(article: UpdateArticleDto): Promise<IArticle> {
-        const updatedArticle = await ArticleModel.findOneAndUpdate({ id: article.id }, article, { new: true }).lean();
-        if (!updatedArticle) {
-            throw new Error("Article not found");
-        }
-        return updatedArticle as IArticle;
-    }
-
-    async delete(article: DeleteArticleDto): Promise<IArticle> {
-        const deletedArticle = await ArticleModel.findOneAndDelete({ title: article.title }).lean();
-        if (!deletedArticle) {
-            throw new Error("Article not found");
-        }
-        return deletedArticle as IArticle;
-    }
     async findArticleByTitle(articleTitle: FindArticleDto): Promise<IArticle> {
         const article = await ArticleModel.findOne({ title: articleTitle.title });
         if (!article) {
