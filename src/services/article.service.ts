@@ -26,8 +26,8 @@ export class ArticleService implements IArticleService {
         const allArcitcles = await this.articleRepository.findAll();
         return this.articleMapper.toFindAllArticleResponseDto(allArcitcles);
     }
-    async createArticle(article: CreateArticleDto): Promise<CreateArticleResponseDto> {
-        const newArticle = await this.articleRepository.create(article);
+    async createArticle(article: CreateArticleDto, userId: string): Promise<CreateArticleResponseDto> {
+        const newArticle = await this.articleRepository.create(article, userId);
         return this.articleMapper.toCreateArticleResponseDto(newArticle);
     }
     async updateArticle(article: UpdateArticleDto): Promise<UpdateArticleResponseDto> {

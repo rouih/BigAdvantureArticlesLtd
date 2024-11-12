@@ -119,21 +119,21 @@ export class ArticleRepository implements IArticleRepository {
         if (!article) {
             throw new Error("Article not found");
         }
-        return article.toObject() as IArticle;
+        return article as IArticle;
     }
 
     async findAll(): Promise<IArticle[]> {
         return await ArticleModel.find().lean();
     }
 
-    async create(article: CreateArticleDto): Promise<IArticle> {
-        const newArticle = new ArticleModel(article);
+    async create(article: CreateArticleDto, userId: string): Promise<IArticle> {
+        const newArticle = new ArticleModel({ ...article, author: userId });
         await newArticle.save().then(async (savedArticle) => {
             await updateArticleIndex(savedArticle);
-            logger.info("article saved");
+            logger.info("New article created");
             return newArticle;
         });
-        return newArticle;
+        return newArticle as IArticle;
     }
 
 }

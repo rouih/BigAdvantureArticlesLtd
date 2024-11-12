@@ -30,6 +30,6 @@ export class ArticleMapper implements IArticleMapper {
         return new DeleteArticleResponseDto({ title: article.title });
     }
     toFindArticleResponseDto(article: IArticle): FindArticleResponseDto {
-        return new FindArticleResponseDto({ title: article.title, body: article.body, author: article.author });
+        return new FindArticleResponseDto({ title: article.title, body: article.body, author: article.author.toString() }); return
     }
 }

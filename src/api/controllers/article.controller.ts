@@ -6,6 +6,7 @@ import { Request, Response, NextFunction } from "express";
 import { IArticleMapper } from "../../interfaces/mappers/article-mapper.interface";
 import winston from "winston/lib/winston/config";
 import logger from "../../utils/winston-logger";
+import { RequestWithUser } from "../../types/express";
 
 @injectable()
 export class ArticleController implements IArticleController {
@@ -41,9 +42,9 @@ export class ArticleController implements IArticleController {
             next(err);
         }
     }
-    async createArticle(req: Request, res: Response, next: NextFunction): Promise<void> {
+    async createArticle(req: RequestWithUser, res: Response, next: NextFunction): Promise<void> {
         try {
-            const article = await this.articleService.createArticle(req.body);
+            const article = await this.articleService.createArticle(req.body, req.User.id);
             res.status(201).json(article);
         } catch (err) {
             next(err);
