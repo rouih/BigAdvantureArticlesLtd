@@ -1,7 +1,7 @@
 import 'reflect-metadata'
 import { inject, injectable } from "tsyringe";
 import { IArticleRepository, IArticleService } from "../interfaces/article.interface";
-import { CreateArticleDto, CreateArticleResponseDto, FindArticleResponseDto, FindArticleDto, SearchArticleDto, SearchArticleResponseDto } from '../dtos/article.dto';
+import { CreateArticleDto, CreateArticleResponseDto, FindArticleResponseDto, FindArticleDto, SearchArticleDto, SearchArticleResponseDto, FindArticleWithMostWordOccurrencesDto, FindArticleWithMostWordOccurrencesResponseDto } from '../dtos/article.dto';
 import { IArticle } from '../models/article.model';
 import { IArticleMapper } from '../interfaces/mappers/article-mapper.interface';
 
@@ -13,8 +13,14 @@ export class ArticleService implements IArticleService {
     ) { }
 
 
-    search(words: SearchArticleDto): Promise<SearchArticleResponseDto> {
-        const searchResult = this.articleRepository.search(words);
+    async findArticleWithMostWordOccurrences(word: FindArticleWithMostWordOccurrencesDto): Promise<FindArticleWithMostWordOccurrencesResponseDto> {
+        const article = await this.articleRepository.findArticleWithMostWordOccurrences(word);
+        return article;
+    }
+
+
+    async search(words: SearchArticleDto): Promise<SearchArticleResponseDto> {
+        const searchResult = await this.articleRepository.search(words);
         return searchResult;
     }
 

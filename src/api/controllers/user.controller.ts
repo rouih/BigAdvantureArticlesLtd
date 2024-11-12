@@ -39,6 +39,7 @@ export class UserController implements IUserController {
         try {
             const userIdDto = this.userMapper.toFindUserDto(req.params.id);
             const user = await this.userService.getUserById(userIdDto);
+            if (!user) res.status(404).json({ message: "User not found" });
             res.status(200).json(user);
         } catch (err) {
             next(err);
@@ -47,6 +48,7 @@ export class UserController implements IUserController {
     async getAllUsers(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
             const users = await this.userService.getAllUsers();
+            if (!users) res.status(404).json({ message: "User not found" });
             res.status(200).json(users);
         } catch (err) {
             next(err);
@@ -56,6 +58,7 @@ export class UserController implements IUserController {
         try {
             const user = req.body;
             const newUser = await this.userService.createUser(user);
+            if (!newUser) res.status(404).json({ message: "User not found or already exists" });
             const token = this.authService.generateToken(newUser.userName);
             res.status(201).json({ newUser, token });
         } catch (err) {

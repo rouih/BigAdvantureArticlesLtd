@@ -80,6 +80,27 @@ export class SearchArticleResponseDto {
 }
 
 export class ArticleWordPositionDto {
+    constructor(partial: Partial<ArticleWordPositionDto>) {
+        Object.assign(this, partial);
+    }
     articleId: string;
     offsets: number[];
+}
+
+export class FindArticleWithMostWordOccurrencesDto {
+    constructor(partial: Partial<FindArticleWithMostWordOccurrencesDto>) {
+        Object.assign(this, partial);
+    }
+    @IsString()
+    @IsNotEmpty()
+    word: string;
+}
+
+export class FindArticleWithMostWordOccurrencesResponseDto {
+    constructor(partial: Partial<FindArticleWithMostWordOccurrencesResponseDto>) {
+        Object.assign(this, partial);
+    }
+    @IsString()
+    @IsNotEmpty()
+    id: string;
 }

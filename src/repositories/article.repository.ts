@@ -1,7 +1,7 @@
 import { inject, injectable } from "tsyringe";
 import { IArticleRepository } from "../interfaces/article.interface";
 import ArticleModel, { IArticle } from "../models/article.model";
-import { CreateArticleDto, FindArticleDto, SearchArticleDto, SearchArticleResponseDto } from "../dtos/article.dto";
+import { CreateArticleDto, FindArticleDto, FindArticleWithMostWordOccurrencesDto, FindArticleWithMostWordOccurrencesResponseDto, SearchArticleDto, SearchArticleResponseDto } from "../dtos/article.dto";
 import { elasticClient, updateArticleIndex } from "../utils/elastic/elastic.index";
 import logger from "../utils/winston-logger";
 import { redisClient } from "../utils/redis-client";
@@ -11,6 +11,56 @@ import { MtermvectorsResponse } from "@elastic/elasticsearch/lib/api/types";
 @injectable()
 export class ArticleRepository implements IArticleRepository {
     constructor(@inject("IArticleMapper") private articleMapper: IArticleMapper) { }
+
+
+    async findArticleWithMostWordOccurrences(word: FindArticleWithMostWordOccurrencesDto): Promise<FindArticleWithMostWordOccurrencesResponseDto> {
+        // Retrieve term vectors for the specified word across all articles
+        const termVectorsResponse: MtermvectorsResponse = await elasticClient.mtermvectors({
+            index: 'articles',
+            body: {
+                docs: [{ _id: "_all", fields: ["body"], term_statistics: false, field_statistics: false, positions: false }]
+            },
+            ids: await this.getAllArticleIds(),
+            fields: ["body"],
+            term_statistics: false,
+            field_statistics: false,
+            payloads: false,
+            positions: false,
+        });
+
+        // Find the article with the highest occurrence of the specified word
+        let maxOccurrences = 0;
+        let articleWithMaxOccurrences = null;
+
+        for (const doc of termVectorsResponse.docs) {
+            const articleId = doc._id;
+            const terms = doc.term_vectors?.body?.terms;
+
+            if (!terms || !terms[word.word]) continue;
+
+            const occurrenceCount = terms[word.word].term_freq;
+
+            if (occurrenceCount > maxOccurrences) {
+                maxOccurrences = occurrenceCount;
+                articleWithMaxOccurrences = articleId;
+            }
+        }
+
+        return { id: articleWithMaxOccurrences };
+    }
+
+
+    private async getAllArticleIds(): Promise<string[]> {
+        const searchResponse = await elasticClient.search({
+            index: 'articles',
+            body: {
+                query: { match_all: {} },
+                _source: false,
+                size: 1000,
+            },
+        });
+        return searchResponse.hits.hits.map(hit => hit._id);
+    }
 
     async search(words: SearchArticleDto): Promise<SearchArticleResponseDto> {
         const cacheKey = `search:${words.words.join(',')}`;
@@ -30,7 +80,7 @@ export class ArticleRepository implements IArticleRepository {
 
         //store the result in redis
         await redisClient.set(cacheKey, wordPositions, 60);
-        return wordPositions
+        return this.articleMapper.toSearchArticleResponseDto(wordPositions);
     }
 
     private async retrieveTermVectors(articleIds: string[], words: string[]): Promise<any> {

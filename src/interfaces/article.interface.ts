@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { CreateArticleDto, CreateArticleResponseDto, FindArticleDto, FindArticleResponseDto, SearchArticleDto, SearchArticleResponseDto } from "../dtos/article.dto";
+import { CreateArticleDto, CreateArticleResponseDto, FindArticleDto, FindArticleResponseDto, FindArticleWithMostWordOccurrencesDto, FindArticleWithMostWordOccurrencesResponseDto, SearchArticleDto, SearchArticleResponseDto } from "../dtos/article.dto";
 import { IArticle } from "../models/article.model";
 import { RequestWithUser } from "../types/express";
 
@@ -8,6 +8,7 @@ export interface IArticleRepository {
     findAll(): Promise<IArticle[]>;
     create(article: CreateArticleDto, userId: string): Promise<IArticle>;
     search(words: SearchArticleDto): Promise<SearchArticleResponseDto>;
+    findArticleWithMostWordOccurrences(word: FindArticleWithMostWordOccurrencesDto): Promise<FindArticleWithMostWordOccurrencesResponseDto>;
 }
 
 export interface IArticleService {
@@ -15,6 +16,7 @@ export interface IArticleService {
     findAll(): Promise<FindArticleResponseDto[]>;
     createArticle(article: CreateArticleDto, userId: string): Promise<CreateArticleResponseDto>;
     search(words: SearchArticleDto): Promise<SearchArticleResponseDto>;
+    findArticleWithMostWordOccurrences(word: FindArticleWithMostWordOccurrencesDto): Promise<FindArticleWithMostWordOccurrencesResponseDto>;
 }
 
 export interface IArticleController {
@@ -22,4 +24,5 @@ export interface IArticleController {
     findAll(req: Request, res: Response, next: NextFunction): Promise<void>;
     createArticle(req: RequestWithUser, res: Response, next: NextFunction): Promise<void>;
     search(req: Request, res: Response, next: NextFunction): Promise<void>;
+    findArticleWithMostWordOccurrences(req: Request, res: Response, next: NextFunction): Promise<void>;
 }

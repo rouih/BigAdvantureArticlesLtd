@@ -15,6 +15,7 @@ export class CommentController implements ICommentController {
             const userId = req.User.id;
             if (!userId) throw new Error("User not found");
             const comment = await this.commentService.create(req.body, userId);
+            if (!comment) res.status(404).json({ message: "Comment not found" });
             res.status(201).json({ ...comment, author: req.User.id });
         } catch (e) {
             next(e);
@@ -25,6 +26,7 @@ export class CommentController implements ICommentController {
         try {
             const articleId = req.params.articleId;
             const comments = await this.commentService.findCommentsByArticle(this.commentMapper.toFindAllCommentsByArticleDto(articleId));
+            if (!comments) res.status(404).json({ message: "Comment not found" });
             res.status(200).json(comments);
         } catch (e) {
             next(e);
@@ -34,6 +36,7 @@ export class CommentController implements ICommentController {
         try {
             const commentId = req.params.id
             const comment = await this.commentService.findCommentById(this.commentMapper.toFindCommentByIdDto(commentId));
+            if (!comment) res.status(404).json({ message: "Comment not found" });
             res.status(200).json(comment);
         } catch (e) {
             next(e);

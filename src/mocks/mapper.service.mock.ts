@@ -1,4 +1,4 @@
-import { CreateArticleDto, CreateArticleResponseDto, FindArticleResponseDto } from "../dtos/article.dto";
+import { CreateArticleDto, CreateArticleResponseDto, FindArticleResponseDto, FindArticleWithMostWordOccurrencesDto, FindArticleWithMostWordOccurrencesResponseDto, SearchArticleDto, SearchArticleResponseDto } from "../dtos/article.dto";
 import { CreateCommentResponseDto, FindCommentByIdDto, FindCommentResponseDto, FindCommentsByArticleDto } from "../dtos/comment.dto";
 import { CreateUserResponseDto, FindUserDto, FindUserResponseDto } from "../dtos/user.dto";
 import { IArticleMapper } from "../interfaces/mappers/article-mapper.interface";
@@ -13,6 +13,10 @@ export class MockArticalMapper implements IArticleMapper {
     toCreateArticleResponseDto = jest.fn<CreateArticleResponseDto, [IArticle]>();
     toFindArticleResponseDto = jest.fn<FindArticleResponseDto, [IArticle]>();
     toFindAllArticleResponseDto = jest.fn<FindArticleResponseDto[], [IArticle[]]>();
+    toFindArticleWithMostWordOccurrencesDto = jest.fn<FindArticleWithMostWordOccurrencesDto, [string]>();
+    toFindArticleWithMostWordOccurrencesResponseDto = jest.fn<FindArticleWithMostWordOccurrencesResponseDto, [IArticle]>();
+    toSearchArticleDto = jest.fn<SearchArticleDto, [SearchArticleDto]>();
+    toSearchArticleResponseDto = jest.fn<SearchArticleResponseDto, [SearchArticleResponseDto]>();
 }
 
 export class MockUserMapper implements IUserMapper {
@@ -33,6 +37,10 @@ export class MockArticleMapper implements IArticleMapper {
     toCreateArticleResponseDto = jest.fn<CreateArticleResponseDto, [IArticle]>();
     toFindArticleResponseDto = jest.fn<FindArticleResponseDto, [IArticle]>();
     toFindAllArticleResponseDto = jest.fn<FindArticleResponseDto[], [IArticle[]]>();
+    toFindArticleWithMostWordOccurrencesDto = jest.fn<FindArticleWithMostWordOccurrencesDto, [string]>();
+    toFindArticleWithMostWordOccurrencesResponseDto = jest.fn<FindArticleWithMostWordOccurrencesResponseDto, [IArticle]>();
+    toSearchArticleDto = jest.fn<SearchArticleDto, [SearchArticleDto]>();
+    toSearchArticleResponseDto = jest.fn<SearchArticleResponseDto, [SearchArticleResponseDto]>();
 }
 
 

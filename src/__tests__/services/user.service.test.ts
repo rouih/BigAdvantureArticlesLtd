@@ -1,11 +1,9 @@
 import 'reflect-metadata';
-import { container } from "tsyringe";
 import { UserService } from '../../services/user.service';
 import { MockUserRepository } from '../../mocks/user.mock.repository';
 import { MockUserMapper } from '../../mocks/mapper.service.mock';
 import { CreateUserDto, CreateUserResponseDto, FindUserDto, FindUserResponseDto } from '../../dtos/user.dto';
 import { IUser } from '../../models/user.model';
-import exp from 'constants';
 
 
 describe("UserService", () => {
