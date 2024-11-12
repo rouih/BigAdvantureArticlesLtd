@@ -31,7 +31,6 @@ export class ArticleRepository implements IArticleRepository {
         // Find the article with the highest occurrence of the specified word
         let maxOccurrences = 0;
         let articleWithMaxOccurrences = null;
-
         for (const doc of termVectorsResponse.docs) {
             const articleId = doc._id;
             const terms = doc.term_vectors?.body?.terms;

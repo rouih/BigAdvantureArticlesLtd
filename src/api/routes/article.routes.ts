@@ -11,7 +11,7 @@ const router = Router();
 const articleController = container.resolve(ArticleController);
 
 router.get("/", (req, res, next) => {
-    if (req.query.title) {
+    if (req.body.title) {
         articleController.findArticleByTitle(req, res, next);
     } else {
         articleController.findAll(req, res, next);

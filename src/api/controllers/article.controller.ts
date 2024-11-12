@@ -34,13 +34,14 @@ export class ArticleController implements IArticleController {
     }
     async findArticleByTitle(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
-            const title = req.query.title || req.params.title;
+            const title = req.body.title
             if (!title) {
                 res.status(400).json({ message: "title is required" });
+                return;
             }
             const article = await this.articleService.findArticleByTitle({ title: title as string });
             if (!article) res.status(404).json({ message: "Article not found" });
-            res.status(200).json(article);
+            else res.status(200).json(article);
         } catch (err) {
             next(err);
         }

@@ -26,7 +26,7 @@ export class FindArticleResponseDto {
 
     @IsString()
     @IsNotEmpty()
-    author: string;
+    authorId: string;
 }
 
 export class FindAllArticleResponseDto {

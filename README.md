@@ -86,10 +86,63 @@ To run the project manually, follow these steps:
 Ensure the following environment variables are set in your `.env` file:
 
 ```plaintext
+NODE_ENV=development
 PORT=3000
-MONGO_URI=mongodb://mongo:27017/yourdbname
-ELASTICSEARCH_HOST=http://elasticsearch:9200
-REDIS_HOST=redis
-REDIS_PORT=6379
-JWT_SECRET=your_jwt_secret
+MONGO_URI = mongodb://localhost:27017/yourDbName
+ELASTIC_PASSWORD= elasticPassword
+ELASTIC_URI = elasticsearch://localhost:9200
+ELASTIC_API_KEY = your-api-key (optional)
 ```
+
+## **Routes**
+
+### **Articles**
+
+| Method | Endpoint                | Description                                                                          |
+| ------ | ----------------------- | ------------------------------------------------------------------------------------ |
+| GET    | `/article`              | Returns a list of all articles.                                                      |
+| GET    | `/article/`             | Returns the article with the specified title based on a specified title in the body. |
+| GET    | `/article/search`       | Returns a list of articles based on the specified search body.                       |
+| GET    | `/article/common/:word` | Returns the article with the most occurrences of the specified word.                 |
+| POST   | `/article`              | Creates a new article.                                                               |
+
+### **Comments**
+
+| Method | Endpoint              | Description                                           |
+| ------ | --------------------- | ----------------------------------------------------- |
+| POST   | `/article/`           | Creates a new comment for the specified article.      |
+| GET    | `/article/:articleId` | Returns a list of comments for the specified article. |
+| GET    | `/article/:id`        | Returns the comment with the specified.               |
+
+### **Users**
+
+| Method | Endpoint      | Description                             |
+| ------ | ------------- | --------------------------------------- |
+| GET    | `/user`       | Returns a list of all users.            |
+| GET    | `/user/:id`   | Returns the user with the specified ID. |
+| POST   | `/user`       | Creates a new user.                     |
+| GET    | `/user/login` | Logs in the user.                       |
+
+---
+
+## **Run Tests**
+
+To run the tests, follow these steps:
+
+1. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+2. Run the tests:
+
+   ```bash
+   npm test
+   ```
+
+---
+
+## **License**
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.

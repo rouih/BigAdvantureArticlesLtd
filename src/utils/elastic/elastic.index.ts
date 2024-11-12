@@ -5,9 +5,6 @@ import dotenv from "dotenv";
 dotenv.config();
 const elasticClient = new Client({
     node: process.env.ELASTIC_URI || "http://localhost:9200",
-    // tls: {
-    //     rejectUnauthorized: false,
-    // },
     auth: {
         apiKey: process.env.ELASTIC_API_KEY || "elastic"
     }

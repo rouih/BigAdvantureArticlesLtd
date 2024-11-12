@@ -71,7 +71,6 @@ describe("ArticleService - createArticle", () => {
         const expectedResponse = new SearchArticleResponseDto({
             hello: [{ articleId: "1", offsets: [0, 12] }],
             simply: [{ articleId: "1", offsets: [21] }]
-            // "print" is not included in the response since it's not in the article
         });
 
 

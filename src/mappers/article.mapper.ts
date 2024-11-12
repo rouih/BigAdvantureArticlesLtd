@@ -16,7 +16,7 @@ export class ArticleMapper implements IArticleMapper {
         return new CreateArticleResponseDto({ title: article.title });
     }
     toFindArticleResponseDto(article: IArticle): FindArticleResponseDto {
-        return new FindArticleResponseDto({ title: article.title, body: article.body, author: article.author.toString() }); return
+        return new FindArticleResponseDto({ title: article.title, body: article.body, authorId: article.author.toString() }); return
     }
     toFindArticleWithMostWordOccurrencesDto(word: string): FindArticleWithMostWordOccurrencesDto {
         return new FindArticleWithMostWordOccurrencesDto({ word: word });
