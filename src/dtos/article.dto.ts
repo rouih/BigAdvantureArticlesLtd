@@ -49,9 +49,6 @@ export class CreateArticleDto {
     @IsString()
     @IsNotEmpty()
     body: string;
-    @IsString()
-    @IsNotEmpty()
-    author: string;
 }
 
 export class CreateArticleResponseDto {
