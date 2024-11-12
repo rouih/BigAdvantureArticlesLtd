@@ -84,17 +84,34 @@ export class CreateUserResponseDto {
 
     @IsString()
     userName!: string;
-
-    @IsString()
-    @IsNotEmpty()
-    token!: string;
 }
 
 export class UpdateUserResponseDto {
+    constructor(partial: Partial<UpdateUserResponseDto>) {
+    }
     @IsString()
     userName!: string;
 
+}
+
+export class LoginUserDto {
+    constructor(partial: Partial<LoginUserDto>) {
+        Object.assign(this, partial);
+    }
     @IsString()
-    @IsOptional()
-    message!: string
+    @IsNotEmpty()
+    username: string;
+
+    @IsString()
+    @IsNotEmpty()
+    password: string;
+}
+
+export class LoginUserResponseDto {
+    constructor(partial: Partial<LoginUserResponseDto>) {
+        Object.assign(this, partial);
+    }
+    @IsString()
+    @IsNotEmpty()
+    token: string;
 }

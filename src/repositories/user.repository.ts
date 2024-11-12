@@ -1,10 +1,13 @@
-import { CreateUserDto, DeleteUserDto, FindUserDto } from "../dtos/user.dto";
+import { CreateUserDto, DeleteUserDto, FindUserDto, LoginUserDto, LoginUserResponseDto } from "../dtos/user.dto";
 import { IUserRepository } from "../interfaces/user.interface";
 import UserModel, { IUser } from "../models/user.model";
 
 export class UserRepository implements IUserRepository {
     constructor() {
 
+    }
+    login(user: LoginUserDto): Promise<LoginUserResponseDto> {
+        throw new Error("Method not implemented.");
     }
     findByUserName(user: FindUserDto): Promise<IUser> {
         throw new Error("Method not implemented.");

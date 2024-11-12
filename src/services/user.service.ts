@@ -1,13 +1,11 @@
 import { inject, injectable } from "tsyringe";
 import { IUserRepository, IUserService } from "../interfaces/user.interface";
 import { IUser } from "../models/user.model";
-import { FindUserDto, CreateUserDto, UpdateUserDto, DeleteUserDto, FindUserResponseDto, CreateUserResponseDto, UpdateUserResponseDto, DeleteUserResponseDto } from "../dtos/user.dto";
+import { FindUserDto, CreateUserDto, UpdateUserDto, DeleteUserDto, FindUserResponseDto, CreateUserResponseDto, UpdateUserResponseDto, DeleteUserResponseDto, LoginUserDto, LoginUserResponseDto } from "../dtos/user.dto";
 import jwt from "jsonwebtoken";
 import { IUserMapper } from "../interfaces/mappers/user-mapper.interface";
-
 @injectable()
 export class UserService implements IUserService {
-    private readonly JWT_SECRET = process.env.JWT_SECRET || "default_secret_key";
 
     constructor(
         @inject("IUserRepository") private userRepository: IUserRepository,
@@ -26,12 +24,8 @@ export class UserService implements IUserService {
         if (!newUser) {
             throw new Error("User already exists");
         }
-        newUser.token = this.generateToken(newUser);
+        // newUser.token = this.generateToken(newUser);
         return this.userMapper.toCreateUserResponseDto(newUser);
-    }
-
-    private generateToken(user: IUser): string {
-        return jwt.sign({ userName: user.username }, this.JWT_SECRET, { expiresIn: '1h' });
     }
     async updateUser(user: UpdateUserDto): Promise<UpdateUserResponseDto> {
         throw new Error("Method not implemented.");

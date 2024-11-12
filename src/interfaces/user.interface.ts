@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { CreateUserDto, CreateUserResponseDto, DeleteUserDto, DeleteUserResponseDto, FindUserDto, FindUserResponseDto, UpdateUserDto, UpdateUserResponseDto } from "../dtos/user.dto";
+import { CreateUserDto, CreateUserResponseDto, DeleteUserDto, DeleteUserResponseDto, FindUserDto, FindUserResponseDto, LoginUserDto, LoginUserResponseDto, UpdateUserDto, UpdateUserResponseDto } from "../dtos/user.dto";
 import { IUser } from "../models/user.model";
 
 export interface IUserRepository {
@@ -16,7 +16,6 @@ export interface IUserService {
     createUser(user: CreateUserDto): Promise<CreateUserResponseDto>;
     updateUser(user: UpdateUserDto): Promise<UpdateUserResponseDto>;
     deleteUser(id: DeleteUserDto): Promise<DeleteUserResponseDto>;
-
 }
 
 export interface IUserController {
@@ -25,5 +24,6 @@ export interface IUserController {
     createUser(req: Request, res: Response, next: NextFunction): Promise<void>;
     updateUser(req: Request, res: Response, next: NextFunction): Promise<void>;
     deleteUser(req: Request, res: Response, next: NextFunction): Promise<void>;
+    logInUser(req: Request, res: Response, next: NextFunction): Promise<void>;
 
 }

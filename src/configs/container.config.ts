@@ -12,6 +12,8 @@ import { UserService } from "../services/user.service";
 import { UserController } from "../api/controllers/user.controller";
 import { UserMapper } from "../mappers/user.mapper";
 import { IUserMapper } from "../interfaces/mappers/user-mapper.interface";
+import { AuthService } from "../services/auth.service";
+import { IAuthService } from "../interfaces/auth.interface";
 
 //Register repositories
 container.registerSingleton<IUserRepository>("IUserRepository", UserRepository);
@@ -25,6 +27,7 @@ container.registerSingleton<IUserMapper>("IUserMapper", UserMapper);
 container.registerSingleton<IUserService>("IUserService", UserService);
 //container.registerSingleton<ICommentService>("ICommentService", CommentService);
 container.registerSingleton<IArticleService>("IArticleService", ArticleService);
+container.registerSingleton<IAuthService>("IAuthService", AuthService);
 
 //Register controllers
 container.registerSingleton<IUserController>("IUserController", UserController);

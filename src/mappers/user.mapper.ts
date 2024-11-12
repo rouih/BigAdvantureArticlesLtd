@@ -7,10 +7,10 @@ import { plainToClass } from "class-transformer";
 @injectable()
 export class UserMapper implements IUserMapper {
     toCreateUserResponseDto(user: IUser): CreateUserResponseDto {
-        return new CreateUserResponseDto({ userName: user.username, token: user.token });
+        return new CreateUserResponseDto({ userName: user.username });
     }
     toUpdateUserResponseDto(user: IUser): UpdateUserResponseDto {
-        return plainToClass(UpdateUserResponseDto, user);
+        return new UpdateUserResponseDto({ userName: user.username });
     }
     toFindUserResponseDto(user: IUser): FindUserResponseDto {
         return plainToClass(FindUserResponseDto, user);
