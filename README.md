@@ -108,11 +108,11 @@ ELASTIC_API_KEY = your-api-key (optional)
 
 ### **Comments**
 
-| Method | Endpoint              | Description                                           |
-| ------ | --------------------- | ----------------------------------------------------- |
-| POST   | `/article/`           | Creates a new comment for the specified article.      |
-| GET    | `/article/:articleId` | Returns a list of comments for the specified article. |
-| GET    | `/article/:id`        | Returns the comment with the specified.               |
+| Method | Endpoint                      | Description                                           |
+| ------ | ----------------------------- | ----------------------------------------------------- |
+| POST   | `/article/comment`            | Creates a new comment for the specified article.      |
+| GET    | `/article/comment/:articleId` | Returns a list of comments for the specified article. |
+| GET    | `/article/comment/:id`        | Returns the comment with the specified.               |
 
 ### **Users**
 
