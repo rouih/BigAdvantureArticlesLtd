@@ -1,13 +1,22 @@
-FROM node:14
+# Dockerfile
+FROM node:18
 
 WORKDIR /app
 
+# Copy package.json and package-lock.json
 COPY package*.json ./
 
+# Install dependencies
 RUN npm install
 
+# Copy all files to the working directory
 COPY . .
 
+# Run the build script to generate the dist folder
+RUN npm run build
+
+# Expose the port the app runs on
 EXPOSE 3000
 
-CMD ["npm", "start"]
+# Start the application
+CMD ["node", "./dist/app.js"]
