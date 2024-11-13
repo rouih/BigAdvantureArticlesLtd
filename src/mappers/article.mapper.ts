@@ -24,12 +24,6 @@ export class ArticleMapper implements IArticleMapper {
     toFindArticleWithMostWordOccurrencesResponseDto(article: IArticle): FindArticleWithMostWordOccurrencesResponseDto {
         return new FindArticleWithMostWordOccurrencesResponseDto({ id: article.id });
     }
-    toSearchArticleDto(words: SearchArticleDto): SearchArticleDto {
-        return new SearchArticleDto({ words: words.words });
-    }
-    toSearchArticleResponseDto(searchResult: SearchArticleResponseDto): SearchArticleResponseDto {
-        return new SearchArticleResponseDto({ articles: searchResult.articles });
-    }
 
 
 }

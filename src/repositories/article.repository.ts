@@ -72,14 +72,17 @@ export class ArticleRepository implements IArticleRepository {
         //Search for articles that contain any of the words
         const articleIds = await this.searchArticlesInElastic(words.words);
         if (articleIds.length === 0) {
-            return new SearchArticleResponseDto({});
-        }
-        // Retrieve term vectors for all matched articles
-        const wordPositions = await this.retrieveTermVectors(articleIds, words.words);
+            console.log("No articles found");
+        } else {
+            // Retrieve term vectors for all matched articles
+            const wordPositions = await this.retrieveTermVectors(articleIds, words.words);
 
-        //store the result in redis
-        await redisClient.set(cacheKey, wordPositions, 60);
-        return this.articleMapper.toSearchArticleResponseDto(wordPositions);
+            //store the result in redis
+            await redisClient.set(cacheKey, wordPositions, 60);
+
+            return wordPositions;
+
+        }
     }
 
     private async retrieveTermVectors(articleIds: string[], words: string[]): Promise<any> {
@@ -144,7 +147,7 @@ export class ArticleRepository implements IArticleRepository {
             },
         });
 
-        return searchResponse.hits.hits.map((hit) => hit._id);
+        return await searchResponse.hits.hits.map((hit) => hit._id);
     }
 
     async findArticleByTitle(articleTitle: FindArticleDto): Promise<IArticle> {

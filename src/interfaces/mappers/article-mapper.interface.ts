@@ -9,6 +9,4 @@ export interface IArticleMapper {
     toCreateArticleResponseDto(article: IArticle): CreateArticleResponseDto;
     toFindArticleWithMostWordOccurrencesDto(word: string): FindArticleWithMostWordOccurrencesDto;
     toFindArticleWithMostWordOccurrencesResponseDto(article: IArticle): FindArticleWithMostWordOccurrencesResponseDto;
-    toSearchArticleDto(words: SearchArticleDto): SearchArticleDto;
-    toSearchArticleResponseDto(searchResult: SearchArticleResponseDto): SearchArticleResponseDto;
 }

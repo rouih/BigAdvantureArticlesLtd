@@ -25,7 +25,7 @@ export class ArticleController implements IArticleController {
     async search(req: Request, res: Response, next: NextFunction): Promise<void> {
         try {
             const words = req.body;
-            const searchResult = await this.articleService.search(this.articleMapper.toSearchArticleDto(words));
+            const searchResult = await this.articleService.search(words);
             if (!searchResult) res.status(404).json({ message: "Article not found" });
             res.status(200).json(searchResult);
         } catch (err) {
